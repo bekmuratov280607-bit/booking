@@ -1,22 +1,28 @@
-from django.urls import path
-from .views  import (CountrySerializer, UserProfileSerializer, CitySerializer,
-                         ServiceSerializer, HotelSerializer, HotelImageSerializer,
-                         RoomSerializer, RoomImageSerializer, BookingSerializer, ReviewSerializer)
-from rest_framework import routers
-router = routers.DefaultRouter()
-router.register('users', CountrySerializer)
-router.register('users', UserProfileSerializer)
-router.register('users', CitySerializer)
-router.register('rooms', RoomSerializer)
-router.register('services', ServiceSerializer)
-router.register('hotels', HotelSerializer)
-router.register('hotelImages', HotelImageSerializer)
-router.register('roomImages', RoomImageSerializer)
-router.register('bookings', BookingSerializer)
-router.register('reviews', ReviewSerializer)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import (
+    UserProfileViewSet, ServiceViewSet, CountryViewSet,
+    HotelListAPIView, HotelImageViewSet,
+    RoomViewSet, RoomImageViewSet,
+    BookingViewSet, ReviewViewSet,
+    CityListAPIView, CityDetailViewSet,
+    HotelDetailAPIView
+)
 
+router = DefaultRouter()
+router.register('users', UserProfileViewSet)
+router.register('services', ServiceViewSet)
+router.register('countries', CountryViewSet)
+router.register('hotels', HotelListAPIView)
+router.register('hotel-images', HotelImageViewSet)
+router.register('rooms', RoomViewSet)
+router.register('room-images', RoomImageViewSet)
+router.register('bookings', BookingViewSet)
+router.register('reviews', ReviewViewSet)
 
-
-
-
-
+urlpatterns = [
+    path('', include(router.urls)),
+    path('cities/', CityListAPIView.as_view()),
+    path('cities/<int:pk>/', CityDetailViewSet.as_view()),
+    path('hotels/<int:pk>/', HotelDetailAPIView.as_view()),
+]

@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics
 from .models import (Country, UserProfile, City, Service,
                      Hotel, HotelImage, Room, RoomImage, Booking,
                      Review)
-from serializers import (CountrySerializer, UserProfileSerializer, CityListSerializer, CityDetailSerializer,
+from .serializers import (CountrySerializer, UserProfileSerializer, CityListSerializer, CityDetailSerializer,
                          ServiceSerializer, HotelListSerializer, HotelDetailSerializer, HotelImageSerializer,
                          RoomSerializer, RoomImageSerializer, BookingSerializer, ReviewSerializer,)
 
@@ -16,7 +16,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     serializer_class = UserProfileSerializer
 
 
-class CityListAPIView (viewsets.ModelViewSet):
+class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CityListSerializer
 
@@ -35,9 +35,10 @@ class HotelListViewSet(viewsets.ModelViewSet):
     queryset = Hotel.objects.all()
     serializer_class = HotelListSerializer
 
-class HotelDetailAPIView(generics.RetrieveAPIView):
+class HotelDetailViewSet(viewsets.ModelViewSet):
     queryset = Hotel.objects.all()
     serializer_class = HotelDetailSerializer
+
 
 
 class HotelImageViewSet(viewsets.ModelViewSet):

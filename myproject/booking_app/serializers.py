@@ -24,7 +24,7 @@ class CityListSerializer(serializers.ModelSerializer):
 class HotelListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = 'id', 'hotel_name', 'hotel_starts'
+        fields = 'id', 'hotel_name', 'hotel_stars'
 
 class CityDetailSerializer(serializers.ModelSerializer):
     city_hotels = HotelListSerializer(many=True, read_only=True)
@@ -43,7 +43,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 class HotelDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = ['hotel_name', 'country', 'city', 'hotel_starts',
+        fields = ['hotel_name', 'country', 'city', 'hotel_stars',
                   'street', 'postal_code', 'description', 'service']
 
 
